@@ -16,7 +16,7 @@
         @foreach($subjects as $subject)
             <div class="block pt-2 font-bold">
                 <a
-                    href="/subjects/{{ $subject['id'] }}"
+                    href="/subjects/{{ $subject->slug }}"
                     class="hover:text-blue-900">
                     {{ $subject->title }}
                 </a>

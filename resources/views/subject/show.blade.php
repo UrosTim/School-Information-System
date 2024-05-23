@@ -10,7 +10,7 @@
         <div class="mt-4">
             <a href="/teachers/{{ $subject->teacher['id'] }}"
                class="text-blue-900 text-sm hover:font-bold">
-                {{ $subject->teacher->name }}
+                Prof. {{ $subject->teacher->name }}
             </a>
         </div>
         <p class="text-sm text-blue-900 mt-2">

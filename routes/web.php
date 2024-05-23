@@ -19,7 +19,8 @@ Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 Route::get('subjects', [SubjectController::class, 'index'])
     ->name('subjects.index');
-Route::get('subjects/{subject}', [SubjectController::class, 'show'])->name('subjects.show');
+Route::get('subjects/{subject:slug}', [SubjectController::class, 'show'])->name('subjects.show');
+Route::get('subject/create', [SubjectController::class, 'create']);
 
 Route::get('teachers', [TeacherController::class, 'index'])->name('teachers.index');
 Route::get('teachers/{teacher}', [TeacherController::class, 'show'])->name('teachers.show');

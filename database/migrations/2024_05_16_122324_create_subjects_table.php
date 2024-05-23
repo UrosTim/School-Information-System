@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('teacher_id');
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('description');
             $table->timestamps();
 

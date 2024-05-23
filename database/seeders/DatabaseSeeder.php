@@ -22,20 +22,20 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        User::factory(10)->create()->each(function ($user) {
+        User::factory(13)->create()->each(function ($user) {
             $user->role = 'teacher';
             $user->save();
         });
 
-        $students = User::factory(40)->create();
+        $students = User::factory(200)->create();
 
-        $subjects = Subject::factory(15)->create();
+        $subjects = Subject::factory(33)->create();
 
         Report::factory(100)->create();
 
         $students->each(function ($student) use ($subjects) {
             $student->subjects()->attach(
-                $subjects->random(rand(1, 7))->pluck('id')->toArray()
+                $subjects->random(rand(2, 7))->pluck('id')->toArray()
             );
         });
     }

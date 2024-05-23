@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subject>
@@ -16,9 +17,10 @@ class SubjectFactory extends Factory
      */
     public function definition(): array
     {
+        $title = $this->faker->sentence();
         return [
-            'title' => $this->faker->sentence(),
-            'slug' => $this->faker->slug(),
+            'title' => $title,
+            'slug' => Str::slug($title),
             'description' => $this->faker->paragraph(),
             'teacher_id' => $this->faker->numberBetween(2, 11),
         ];

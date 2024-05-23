@@ -15,7 +15,10 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = Subject::all();
-        return view('subject.index', compact('subjects'));
+
+        return view('subject.index', [
+            'subjects' => $subjects
+        ]);
     }
 
     /**
@@ -23,7 +26,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('subject.create');
     }
 
     /**
@@ -39,7 +42,7 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        $subjects = Subject::with('teacher')->get();
+//        $subjects = Subject::with('teacher')->get();
 
         $students = $subject->students;
 

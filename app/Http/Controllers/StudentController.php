@@ -12,14 +12,14 @@ class StudentController extends Controller
     {
         $students = User::where('role', 'student')->get();
 
-        return view('student.index', compact('students'));
+        return view('students.index', compact('students'));
     }
 
     public function show(User $student)
     {
         $subjects = $student->subjects;
 
-        return view('student.show', [
+        return view('students.show', [
             'student' => $student,
             'subjects' => $subjects
         ]);

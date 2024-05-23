@@ -18,10 +18,13 @@ class ReportFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::inRandomOrder()->first();
+        $subject = Subject::inRandomOrder()->first();
+
         return [
 //            'teacher_id' => $this->faker->numberBetween(2, 11),
-            'student_id' => User::factory(),
-            'subject_id' => Subject::factory(),
+            'student_id' => $user->id,
+            'subject_id' => $subject->id,
             'comment' => $this->faker->realText(),
             'points' => $this->faker->numberBetween(0, 100),
         ];
