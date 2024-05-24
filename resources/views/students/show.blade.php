@@ -14,7 +14,7 @@
     <div class="py-6 border-t border-blue-900">
         List of subjects:
         @foreach($subjects as $subject)
-            <div class="block pt-2 font-bold">
+            <div class="block pt-2 text-sm font-bold">
                 <a
                     href="/subjects/{{ $subject->slug }}"
                     class="hover:text-blue-900">
@@ -23,4 +23,18 @@
             </div>
         @endforeach
     </div>
+    <div class="py-6 border-t border-blue-900">
+        My reports:
+        @foreach($reports as $report)
+            <div class="block pt-2 text-sm font-bold">
+                <a
+                    href="/reports/{{ $report->id }}"
+                    class="hover:text-blue-900">
+                    {{ $report->subject->title }} - {{ $report->created_at->format('F jS Y') }}
+                </a>
+            </div>
+        @endforeach
+    </div>
+    Prosek:
+
 </x-layout>

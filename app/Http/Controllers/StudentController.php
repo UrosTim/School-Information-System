@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,9 +20,12 @@ class StudentController extends Controller
     {
         $subjects = $student->subjects;
 
+        $reports = $student->reports;
+
         return view('students.show', [
             'student' => $student,
-            'subjects' => $subjects
+            'subjects' => $subjects,
+            'reports' => $reports,
         ]);
     }
 }

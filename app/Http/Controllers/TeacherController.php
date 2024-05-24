@@ -18,6 +18,9 @@ class TeacherController extends Controller
     public function show(User $teacher)
     {
         $subjects = Subject::where('teacher_id', $teacher->id)->get();
-        return view('teacher.show', ['teacher' => $teacher, 'subjects' => $subjects]);
+        return view('teacher.show', [
+            'teacher' => $teacher,
+            'subjects' => $subjects
+        ]);
     }
 }

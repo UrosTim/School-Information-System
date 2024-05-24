@@ -42,16 +42,9 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-//        dd($report->subject);
-//        $subject = $report->subject;
-//        $teacher = $subject->teacher;
-//        $student = $subject->student;
 
         return view('reports.show', [
             'report' => $report,
-//            'subject' => $subject,
-//            'teacher' => $teacher,
-//            'student' => $student
         ]);
     }
 

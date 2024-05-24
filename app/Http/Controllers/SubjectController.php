@@ -42,13 +42,14 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-//        $subjects = Subject::with('teacher')->get();
-
         $students = $subject->students;
+
+        $reports = $subject->reports;
 
         return view('subject.show', [
             'subject' => $subject,
             'students' => $students,
+            'reports' => $reports
         ]);
     }
 

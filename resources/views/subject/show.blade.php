@@ -19,16 +19,30 @@
         <p class="w-1/3 mt-10">
             {{ $subject->description }}
         </p>
-        <p class="my-6">List of students:</p>
-        @foreach($students as $student)
-            <div>
-                <a
-                    href="/students/{{ $student['id'] }}"
-                    class="text-sm hover:text-blue-900">
-                    {{ $student->name }}
-                </a>
-            </div>
-        @endforeach
+        <p class="my-6 pt-4 border-t border-blue-900">List of students:</p>
+        <div class="grid grid-cols-4 gap-4">
+            @foreach($students as $student)
+                <div>
+                    <a
+                        href="/students/{{ $student['id'] }}"
+                        class="text-sm hover:text-blue-900 grid-cols-2">
+                        {{ $student->name }}
+                    </a>
+                </div>
+            @endforeach
+        </div>
+        <p class="my-6 pt-4 border-t border-blue-900">List of reports:</p>
+        <div class="grid grid-cols-3 gap-4">
+            @foreach($reports as $report)
+                <div>
+                    <a
+                        href="/students/{{ $report['id'] }}"
+                        class="text-sm hover:text-blue-900">
+                        {{ $report->student->name }} - {{ $report->created_at->format('F jS Y') }}
+                    </a>
+                </div>
+            @endforeach
+        </div>
     </div>
 
 </x-layout>

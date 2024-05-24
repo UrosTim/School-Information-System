@@ -34,9 +34,6 @@
                     <x-side-link href="/" :active="request()->is('/')">Dashboard</x-side-link>
                 </div>
                 <div>
-                    <x-side-link href="/reports" :active="request()->is('reports')">Reports</x-side-link>
-                </div>
-                <div>
                     <x-side-link href="/subjects" :active="request()->is('subjects')">Subjects</x-side-link>
                 </div>
                 <div>
@@ -44,6 +41,9 @@
                 </div>
                 <div>
                     <x-side-link href="/students" :active="request()->is('students')">Students</x-side-link>
+                </div>
+                <div>
+                    <x-side-link href="/reports" :active="request()->is('reports')">Reports</x-side-link>
                 </div>
                 <div>
                     <x-side-link href="/charts" :active="request()->is('charts')">Charts</x-side-link>

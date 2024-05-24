@@ -53,17 +53,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Subject::class, 'student_subject', 'student_id', 'subject_id');
     }
-//    public function reports(): HasMany
-//    {
-//        return $this->hasMany(Subject::class, 'teacher_id');
-//    }
     public function reports(): HasMany
     {
-        return $this->hasMany(Subject::class, 'student_id');
-    }
-    public function teacherSubjects(): HasMany
-    {
-        return $this->hasMany(Subject::class, 'teacher_id');
+        return $this->hasMany(Report::class, 'student_id');
     }
 
     public function isAdmin(): bool

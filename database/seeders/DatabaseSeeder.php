@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
 
         $subjects = Subject::factory(33)->create();
 
-        Report::factory(100)->create();
+        Report::factory(500)->create();
 
         $students->each(function ($student) use ($subjects) {
             $student->subjects()->attach(
