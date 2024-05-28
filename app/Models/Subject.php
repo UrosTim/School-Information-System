@@ -12,7 +12,7 @@ class Subject extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'description'];
+    protected $fillable = ['title', 'slug', 'description', 'teacher_id'];
 
     public function students(): BelongsToMany
     {

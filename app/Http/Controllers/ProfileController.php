@@ -26,19 +26,15 @@ class ProfileController extends Controller
 
             $reports = $user->reports;
         }
+        else if ($user->role == 'admin') {
+            $subjects = [];
+            $reports = [];
+        }
 
         return view('profile.show', [
             'profile' => $request->user(),
             'subjects' => $subjects,
             'reports' => $reports
             ]);
-    }
-    public  function findReports($studentId)
-    {
-        $student = User::find($studentId);
-
-        $studentReports = $student->reports;
-
-        return $studentReports;
     }
 }

@@ -4,11 +4,29 @@
     </x-slot:heading>
 
     <div>
-        <h2 class="font-bold text-2xl">
+        <h2 class="font-bold text-2xl mb-6">
             {{ $subject->title }}
         </h2>
+
+        <div class="flex items-center space-x-6">
+            <x-button href="/subjects/{{ $subject->slug }}/edit">
+                Edit Subject
+            </x-button>
+            <div class="text-red-700 hover:font-bold">
+                <form
+                    action="/subjects/{{ $subject->slug }}"
+                    method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button>
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+
         <div class="mt-4">
-            <a href="/teachers/{{ $subject->teacher['id'] }}"
+            <a href="/teachers/{{ $subject->teacher->id }}"
                class="text-blue-900 text-sm hover:font-bold">
                 Prof. {{ $subject->teacher->name }}
             </a>
@@ -36,7 +54,7 @@
             @foreach($reports as $report)
                 <div>
                     <a
-                        href="/students/{{ $report['id'] }}"
+                        href="/reports/{{ $report['id'] }}"
                         class="text-sm hover:text-blue-900">
                         {{ $report->student->name }} - {{ $report->created_at->format('F jS Y') }}
                     </a>

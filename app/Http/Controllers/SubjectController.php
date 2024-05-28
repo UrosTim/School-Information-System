@@ -6,6 +6,8 @@ use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 
 class SubjectController extends Controller
 {
@@ -34,7 +36,20 @@ class SubjectController extends Controller
      */
     public function store(StoreSubjectRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $subject = new Subject();
+
+        $subject->title = $validated['title'];
+        $subject->description = $validated['description'];
+        $subject->teacher_id = $validated['teacher_id'];
+        $subject->slug = Str::slug($validated['title'], '-');
+
+        $subject->save();
+
+        return redirect()
+            ->route('subjects.index')
+            ->with('success', 'Subject created successfully.');
     }
 
     /**
@@ -58,7 +73,9 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        //
+        return view('subject.edit', [
+            'subject' => $subject
+        ]);
     }
 
     /**
@@ -66,7 +83,18 @@ class SubjectController extends Controller
      */
     public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        //
+        $validated = $request->validated();
+
+        $subject->title = $validated['title'];
+        $subject->description = $validated['description'];
+        $subject->teacher_id = $validated['teacher_id'];
+        $subject->slug = Str::slug($validated['title'], '-');
+
+        $subject->save();
+
+        return redirect()
+            ->route('subjects.index')
+            ->with('success', 'Subject created successfully.');
     }
 
     /**
@@ -74,6 +102,7 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $subject->delete();
+        return redirect('/subjects');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')
@@ -25,9 +26,13 @@ Route::post('/logout', [SessionController::class, 'destroy'])
 
 Route::get('subjects', [SubjectController::class, 'index'])
     ->name('subjects.index');
+Route::get('subject/create', [SubjectController::class, 'create']);
+Route::post('subjects', [SubjectController::class, 'store']);
 Route::get('subjects/{subject:slug}', [SubjectController::class, 'show'])
     ->name('subjects.show');
-Route::get('subject/create', [SubjectController::class, 'create']);
+Route::get('subjects/{subject:slug}/edit', [SubjectController::class, 'edit']);
+Route::patch('subjects/{subject:slug}', [SubjectController::class, 'update']);
+Route::delete('subjects/{subject:slug}', [SubjectController::class, 'destroy']);
 
 Route::get('teachers', [TeacherController::class, 'index'])
     ->name('teachers.index');
