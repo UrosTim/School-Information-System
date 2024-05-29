@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -35,6 +36,27 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function fillAndSaveStudent($request)
+    {
+        $this->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'student',
+        ]);
+        return $this->save();
+    }
+    public function fillAndSaveTeacher($request)
+    {
+        $this->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'teacher',
+        ]);
+        return $this->save();
+    }
 
     /**
      * Get the attributes that should be cast.

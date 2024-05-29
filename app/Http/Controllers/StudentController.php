@@ -26,14 +26,10 @@ class StudentController extends Controller
 
     public function store(StoreStudentRequest $request)
     {
+
         $student = new User();
 
-        $student->name = $request->input('name');
-        $student->email = $request->input('email');
-        $student->role = $request->input('role');
-        $student->password = Hash::make($request->input('password'));
-
-        $student->save();
+        $student->fillAndSaveStudent($request);
 
         return redirect()
             ->route('students.index')
@@ -62,12 +58,7 @@ class StudentController extends Controller
 
     public function update(UpdateStudentRequest $request, User $student)
     {
-        $student->name = $request->input('name');
-        $student->email = $request->input('email');
-        $student->role = $request->input('role');
-        $student->password = Hash::make($request->input('password'));
-
-        $student->save();
+        $student->fillAndSaveStudent($request);
 
         return redirect()
             ->route('students.index')

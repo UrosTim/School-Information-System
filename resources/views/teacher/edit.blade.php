@@ -32,21 +32,11 @@
                 </x-form.field>
 
                 <x-form.field>
-                    <x-form.label for="role">
-                        Role
-                    </x-form.label>
-                    <div class="mt-2">
-                        <x-form.input name="role" id="role" value="{{ $teacher->role }}" required/>
-                        <x-form.error name="role"/>
-                    </div>
-                </x-form.field>
-
-                <x-form.field>
                     <x-form.label for="password">
                         Password
                     </x-form.label>
                     <div class="mt-2">
-                        <x-form.input name="password" id="password" required/>
+                        <x-form.input name="password" type="password" id="password" required/>
                         <x-form.error name="password"/>
                     </div>
                 </x-form.field>

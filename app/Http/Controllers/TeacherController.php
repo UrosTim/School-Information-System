@@ -27,12 +27,7 @@ class TeacherController extends Controller
     {
         $teacher = new User();
 
-        $teacher->name = $request->input('name');
-        $teacher->email = $request->input('email');
-        $teacher->role = $request->input('role');
-        $teacher->password = Hash::make($request->input('password'));
-
-        $teacher->save();
+        $teacher->fillAndSaveTeacher($request);
 
         return redirect()
             ->route('teachers.index')
@@ -57,12 +52,7 @@ class TeacherController extends Controller
 
     public function update(UpdateTeacherRequest $request, User $teacher)
     {
-        $teacher->name = $request->input('name');
-        $teacher->email = $request->input('email');
-        $teacher->role = $request->input('role');
-        $teacher->password = Hash::make($request->input('password'));
-
-        $teacher->save();
+        $teacher->fillAndSaveTeacher($request);
 
         return redirect()
             ->route('teachers.index')

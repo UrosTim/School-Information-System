@@ -36,14 +36,14 @@ class SubjectController extends Controller
      */
     public function store(StoreSubjectRequest $request)
     {
-        $validated = $request->validated();
-
         $subject = new Subject();
 
-        $subject->title = $validated['title'];
-        $subject->description = $validated['description'];
-        $subject->teacher_id = $validated['teacher_id'];
-        $subject->slug = Str::slug($validated['title'], '-');
+        $subject->fill([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'teacher_id' => $request->input('teacher_id'),
+            'slug' => Str::slug($request->input('title'), '-')
+        ]);
 
         $subject->save();
 
@@ -83,12 +83,12 @@ class SubjectController extends Controller
      */
     public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        $validated = $request->validated();
-
-        $subject->title = $validated['title'];
-        $subject->description = $validated['description'];
-        $subject->teacher_id = $validated['teacher_id'];
-        $subject->slug = Str::slug($validated['title'], '-');
+        $subject->fill([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'teacher_id' => $request->input('teacher_id'),
+            'slug' => Str::slug($request->input('title'), '-')
+        ]);
 
         $subject->save();
 
