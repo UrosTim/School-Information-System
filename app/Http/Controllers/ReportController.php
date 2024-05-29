@@ -14,7 +14,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = Report::all();
+        $reports = Report::latest()->get();
 
         return view('reports.index', [
             'reports' => $reports
@@ -26,7 +26,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('reports.create');
     }
 
     /**
@@ -34,15 +34,23 @@ class ReportController extends Controller
      */
     public function store(StoreReportRequest $request)
     {
-        //
+        $report = new Report();
+
+        $report->fill($request->all());
+        $report->save();
+
+        return redirect()
+            ->route('reports.index')
+            ->with('success', 'Report created successfully.');
+
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Report $report)
     {
-
         return view('reports.show', [
             'report' => $report,
         ]);
@@ -53,7 +61,9 @@ class ReportController extends Controller
      */
     public function edit(Report $report)
     {
-        //
+        return view('reports.edit', [
+            'report' => $report,
+        ]);
     }
 
     /**
@@ -61,7 +71,12 @@ class ReportController extends Controller
      */
     public function update(UpdateReportRequest $request, Report $report)
     {
-        //
+        $report->fill($request->all());
+        $report->save();
+
+        return redirect()
+            ->route('reports.index')
+            ->with('success', 'Report updated successfully.');
     }
 
     /**
@@ -69,6 +84,9 @@ class ReportController extends Controller
      */
     public function destroy(Report $report)
     {
-        //
+        $report->delete();
+        return redirect()
+            ->route('reports.index')
+            ->with('success', 'Report deleted successfully.');
     }
 }

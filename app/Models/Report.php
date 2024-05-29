@@ -10,12 +10,7 @@ class Report extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['comment', 'points'];
-
-//    public function teacher(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class, 'teacher_id')->where('role', 'teacher');
-//    }
+    protected $fillable = ['comment', 'points', 'subject_id', 'student_id'];
 
     public function student(): BelongsTo
     {

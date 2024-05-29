@@ -56,8 +56,13 @@ Route::delete('students/{student}', [StudentController::class, 'destroy']);
 
 Route::get('reports', [ReportController::class, 'index'])
     ->name('reports.index');
+Route::get('reports/create', [ReportController::class, 'create']);
+Route::post('reports', [ReportController::class, 'store']);
 Route::get('reports/{report}', [ReportController::class, 'show'])
     ->name('reports.show');
+Route::get('reports/{report}/edit', [ReportController::class, 'edit']);
+Route::patch('reports/{report}', [ReportController::class, 'update']);
+Route::delete('reports/{report}', [ReportController::class, 'destroy']);
 
 Route::get('charts', [ChartController::class, 'index'])
     ->name('charts.index');

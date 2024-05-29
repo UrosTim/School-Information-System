@@ -72,6 +72,7 @@ class TeacherController extends Controller
     public function destroy(User $teacher)
     {
         $teacher->delete();
-        return redirect('/teachers');
+        return redirect('/teachers')
+            ->with('success', 'Teacher deleted successfully');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreReportRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreReportRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -22,7 +23,10 @@ class StoreReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'comment' => ['required', 'string'],
+            'points' => ['required', 'integer', 'min:1', 'max:100'],
+            'subject_id' => ['required', 'integer', 'exists:subjects,id'],
+            'student_id' => ['required', 'integer', 'exists:users,id'],
         ];
     }
 }

@@ -6,12 +6,28 @@
     <div class="space-y-8">
         <div>
             <a
-                href="/subjects/{{ $report->subject->slug }}"
+                href="/reports/{{ $report->subject->slug }}"
                 class="hover:text-blue-900">
                 <p class="text-2xl">
                     {{ $report->subject->title }}
                 </p>
             </a>
+        </div>
+        <div class="flex items-center space-x-6">
+            <x-button href="/reports/{{ $report->id }}/edit">
+                Edit Subject
+            </x-button>
+            <div class="text-red-700 hover:font-bold">
+                <form
+                    action="/reports/{{ $report->id }}"
+                    method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button>
+                        Delete
+                    </button>
+                </form>
+            </div>
         </div>
         <div>
             <a
@@ -32,7 +48,7 @@
             </a>
         </div>
         <div>
-            Score: {{ $report->points }}
+            Score: <strong>{{ $report->points }}</strong>
         </div>
         <div class="w-1/2">
             Comment:
