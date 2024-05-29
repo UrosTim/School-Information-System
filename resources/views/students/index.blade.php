@@ -5,6 +5,9 @@
     </x-slot:heading>
 
     <div class="flex-col w-2/3 mx-auto text-sm">
+        <div class="mb-6">
+            <x-button href="/students/create">Add Student</x-button>
+        </div>
         @foreach ($students as $student)
             <a
                 href="/students/{{ $student['id'] }}"
