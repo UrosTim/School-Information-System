@@ -94,7 +94,7 @@ class SubjectController extends Controller
 
         return redirect()
             ->route('subjects.index')
-            ->with('success', 'Subject created successfully.');
+            ->with('success', 'Subject updated successfully.');
     }
 
     /**

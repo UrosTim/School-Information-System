@@ -36,8 +36,13 @@ Route::delete('subjects/{subject:slug}', [SubjectController::class, 'destroy']);
 
 Route::get('teachers', [TeacherController::class, 'index'])
     ->name('teachers.index');
+Route::get('teachers/create', [TeacherController::class, 'create']);
+Route::post('teachers', [TeacherController::class, 'store']);
 Route::get('teachers/{teacher}', [TeacherController::class, 'show'])
     ->name('teachers.show');
+Route::get('teachers/{teacher}/edit', [TeacherController::class, 'edit']);
+Route::patch('teachers/{teacher}', [TeacherController::class, 'update']);
+Route::delete('teachers/{teacher}', [TeacherController::class, 'destroy']);
 
 Route::get('students', [StudentController::class, 'index'])
     ->name('students.index');
