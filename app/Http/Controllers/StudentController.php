@@ -14,9 +14,11 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = User::where('role', 'student')->get();
+        $students = User::students()->get();
 
-        return view('students.index', compact('students'));
+        return view('students.index', [
+            'students' => $students
+        ]);
     }
 
     public function create()
@@ -29,7 +31,13 @@ class StudentController extends Controller
 
         $student = new User();
 
-        $student->fillAndSaveStudent($request);
+        $student->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => User::ROLE_STUDENT,
+        ]);
+        $student->save();
 
         return redirect()
             ->route('students.index')
@@ -40,7 +48,8 @@ class StudentController extends Controller
     {
         $subjects = $student->subjects;
 
-        $reports = $student->reports;
+        $reports = Report::with('subject')->get();
+
 
         return view('students.show', [
             'student' => $student,
@@ -58,7 +67,13 @@ class StudentController extends Controller
 
     public function update(UpdateStudentRequest $request, User $student)
     {
-        $student->fillAndSaveStudent($request);
+        $student->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => User::ROLE_STUDENT,
+        ]);
+        $student->save();
 
         return redirect()
             ->route('students.index')

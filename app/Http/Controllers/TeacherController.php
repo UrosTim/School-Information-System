@@ -13,9 +13,11 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $teachers = User::where('role', 'teacher')->get();
+        $teachers = User::teachers()->get();
 
-        return view('teacher.index', compact('teachers'));
+        return view('teacher.index', [
+            'teachers' => $teachers
+        ]);
     }
 
     public function create()
@@ -27,7 +29,13 @@ class TeacherController extends Controller
     {
         $teacher = new User();
 
-        $teacher->fillAndSaveTeacher($request);
+        $teacher->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => User::ROLE_TEACHER,
+        ]);
+        $teacher->save();
 
         return redirect()
             ->route('teachers.index')
@@ -36,7 +44,7 @@ class TeacherController extends Controller
 
     public function show(User $teacher)
     {
-        $subjects = Subject::where('teacher_id', $teacher->id)->get();
+        $subjects = Subject::with('teacher')->where('teacher_id', $teacher->id)->get();
         return view('teacher.show', [
             'teacher' => $teacher,
             'subjects' => $subjects
@@ -52,7 +60,13 @@ class TeacherController extends Controller
 
     public function update(UpdateTeacherRequest $request, User $teacher)
     {
-        $teacher->fillAndSaveTeacher($request);
+        $teacher->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'teacher',
+        ]);
+        $teacher->save();
 
         return redirect()
             ->route('teachers.index')

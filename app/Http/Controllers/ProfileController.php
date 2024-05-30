@@ -11,24 +11,21 @@ class ProfileController extends Controller
 {
     public function show(Request $request)
     {
-        $user = $request->user();
+        $user = auth()->user();
 
-        if ($user->role == 'teacher') {
-            $subjects = Subject::where('teacher_id', $user->id)->get();
+        $subjects = [];
+        $reports = [];
 
-            $reports = collect();
-            foreach ($subjects as $subject) {
-                $reports = $reports->merge($subject->reports);
-            }
+        if ($user->role === User::ROLE_TEACHER) {
+            $subjects = Subject::with('reports')
+                ->where('teacher_id', $user->id)->get();
+
+            $reports = $subjects->pluck('reports')->flatten();
         }
-        else if ($user->role == 'student') {
-            $subjects = $user->subjects;
+        else if ($user->role === User::ROLE_STUDENT) {
+            $subjects = $user->subjects()->with('reports')->get();
 
             $reports = $user->reports;
-        }
-        else if ($user->role == 'admin') {
-            $subjects = [];
-            $reports = [];
         }
 
         return view('profile.show', [

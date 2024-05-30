@@ -6,7 +6,7 @@
 
     <div class="flex-col w-2/3 mx-auto items-center space-y-6 text-sm">
         <div>
-            <x-button href="/subject/create">Add Subject</x-button>
+            <x-button href="/subjects/create">Add Subject</x-button>
         </div>
 
         @foreach ($subjects as $subject)

@@ -20,7 +20,7 @@ class Subject extends Model
     }
     public function teacher(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'teacher_id')->where('role', 'teacher');
+        return $this->belongsTo(User::class, 'teacher_id')->where('role', User::ROLE_TEACHER);
     }
     public function reports(): HasMany
     {

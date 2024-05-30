@@ -11,60 +11,52 @@ use App\Http\Controllers\TeacherController;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'home')
-    ->middleware('auth');
-
-Route::get('/profile', [ProfileController::class, 'show'])
-    ->middleware('auth');
-
-Route::get('/login', [SessionController::class, 'create'])
-    ->name('login');
-Route::post('/login', [SessionController::class, 'store']);
-
-Route::post('/logout', [SessionController::class, 'destroy'])
-    ->name('logout');
-
-Route::get('subjects', [SubjectController::class, 'index'])
-    ->name('subjects.index');
-Route::get('subject/create', [SubjectController::class, 'create']);
-Route::post('subjects', [SubjectController::class, 'store']);
-Route::get('subjects/{subject:slug}', [SubjectController::class, 'show'])
-    ->name('subjects.show');
-Route::get('subjects/{subject:slug}/edit', [SubjectController::class, 'edit']);
-Route::patch('subjects/{subject:slug}', [SubjectController::class, 'update']);
-Route::delete('subjects/{subject:slug}', [SubjectController::class, 'destroy']);
-
-Route::get('teachers', [TeacherController::class, 'index'])
-    ->name('teachers.index');
-Route::get('teachers/create', [TeacherController::class, 'create']);
-Route::post('teachers', [TeacherController::class, 'store']);
-Route::get('teachers/{teacher}', [TeacherController::class, 'show'])
-    ->name('teachers.show');
-Route::get('teachers/{teacher}/edit', [TeacherController::class, 'edit']);
-Route::patch('teachers/{teacher}', [TeacherController::class, 'update']);
-Route::delete('teachers/{teacher}', [TeacherController::class, 'destroy']);
-
-Route::get('students', [StudentController::class, 'index'])
-    ->name('students.index');
-Route::get('students/create', [StudentController::class, 'create']);
-Route::post('students', [StudentController::class, 'store']);
-Route::get('students/{student}', [StudentController::class, 'show'])
-    ->name('students.show');
-Route::get('students/{student}/edit', [StudentController::class, 'edit']);
-Route::patch('students/{student}', [StudentController::class, 'update']);
-Route::delete('students/{student}', [StudentController::class, 'destroy']);
-
-Route::get('reports', [ReportController::class, 'index'])
-    ->name('reports.index');
-Route::get('reports/create', [ReportController::class, 'create']);
-Route::post('reports', [ReportController::class, 'store']);
-Route::get('reports/{report}', [ReportController::class, 'show'])
-    ->name('reports.show');
-Route::get('reports/{report}/edit', [ReportController::class, 'edit']);
-Route::patch('reports/{report}', [ReportController::class, 'update']);
-Route::delete('reports/{report}', [ReportController::class, 'destroy']);
-
-Route::get('charts', [ChartController::class, 'index'])
-    ->name('charts.index');
+Route::middleware('auth')->group(function () {
+    Route::view('/', 'home');
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::post('/logout', [SessionController::class, 'destroy'])
+        ->name('logout');
+});
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [SessionController::class, 'create']);
+    Route::post('/login', [SessionController::class, 'store']);
+});
+Route::controller(SubjectController::class)->group(function () {
+    Route::get('subjects', 'index');
+    Route::get('subjects/create', 'create');
+    Route::post('subjects', 'store');
+    Route::get('subjects/{subject:slug}', 'show');
+    Route::get('subjects/{subject:slug}/edit', 'edit');
+    Route::patch('subjects/{subject:slug}', 'update');
+    Route::delete('subjects/{subject:slug}', 'destroy');
+});
+Route::controller(StudentController::class)->group(function () {
+    Route::get('students', 'index');
+    Route::get('students/create', 'create');
+    Route::post('students', 'store');
+    Route::get('students/{student}', 'show');
+    Route::get('students/{student}/edit', 'edit');
+    Route::patch('students/{student}', 'update');
+    Route::delete('students/{student}', 'destroy');
+});
+Route::controller(TeacherController::class)->group(function () {
+    Route::get('teachers', 'index');
+    Route::get('teachers/create', 'create');
+    Route::post('teachers', 'store');
+    Route::get('teachers/{teacher}', 'show');
+    Route::get('teachers/{teacher}/edit', 'edit');
+    Route::patch('teachers/{teacher}', 'update');
+    Route::delete('teachers/{teacher}', 'destroy');
+});
+Route::controller(ReportController::class)->group(function () {
+    Route::get('reports', 'index');
+    Route::get('reports/create', 'create');
+    Route::post('reports', 'store');
+    Route::get('reports/{report}', 'show');
+    Route::get('reports/{report}/edit', 'edit');
+    Route::patch('reports/{report}', 'update');
+    Route::delete('reports/{report}', 'destroy');
+});
+Route::get('charts', [ChartController::class, 'index']);
 
 Route::get('notifications', [NotificationController::class, 'index']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
 use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
@@ -16,7 +17,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
+        $subjects = Subject::with('teacher')->get();
 
         return view('subject.index', [
             'subjects' => $subjects
@@ -59,7 +60,7 @@ class SubjectController extends Controller
     {
         $students = $subject->students;
 
-        $reports = $subject->reports;
+        $reports = Report::with('student')->get();
 
         return view('subject.show', [
             'subject' => $subject,

@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
-            'role' => 'admin',
+            'role' => User::ROLE_ADMIN,
         ]);
 
         User::factory(13)->create()->each(function ($user) {
-            $user->role = 'teacher';
+            $user->role = User::ROLE_TEACHER;
             $user->save();
         });
 

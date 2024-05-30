@@ -27,6 +27,10 @@ class User extends Authenticatable
         'role',
     ];
 
+    const ROLE_ADMIN = 'admin';
+    const ROLE_STUDENT = 'student';
+    const ROLE_TEACHER = 'teacher';
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -36,28 +40,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    public function fillAndSaveStudent($request)
-    {
-        $this->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'student',
-        ]);
-        return $this->save();
-    }
-    public function fillAndSaveTeacher($request)
-    {
-        $this->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'teacher',
-        ]);
-        return $this->save();
-    }
-
     /**
      * Get the attributes that should be cast.
      *
@@ -80,9 +62,19 @@ class User extends Authenticatable
         return $this->hasMany(Report::class, 'student_id');
     }
 
+    public function scopeStudents($query)
+    {
+        return $query->where('role', self::ROLE_STUDENT);
+    }
+
+    public function scopeTeachers($query)
+    {
+        return $query->where('role', self::ROLE_TEACHER);
+    }
+
     public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return $this->role === User::ROLE_ADMIN;
     }
 
 }
